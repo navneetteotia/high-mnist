@@ -4,3 +4,4 @@ torchaudio==2.1.0
 matplotlib==3.9.2
 tqdm==4.66
 torchsummary==1.5.1
+numpy==1.26.3
