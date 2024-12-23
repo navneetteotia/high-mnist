@@ -10,6 +10,17 @@ import numpy as np
 from tqdm import tqdm
 from torchsummary import summary
 import torch.nn.functional as F
+import random
+
+# Set seed for reproducibility
+def set_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 class EfficientMNISTCNN(nn.Module):
     def __init__(self, dropout_rate=0.15):
@@ -86,6 +97,9 @@ class EarlyStopping:
             self.counter = 0
 
 def train_model():
+    # Set seed
+    set_seed(42)
+    
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -193,7 +207,7 @@ def train_model():
     print(f'\nBest Test Accuracy: {best_accuracy:.2f}%')
 
 if __name__ == '__main__':
-    train_model() 
+    train_model()
 
 
 
